@@ -1,7 +1,8 @@
 {:paths ["src" "target/classes"]
  :deps {
    org.clojure/clojure {:mvn/version "1.12.0"}
-   org.clojure/core.async {:mvn/version "1.9.809-SNAPSHOT"}
+   io.github.clojure/core.async {:git/sha "0f340a906cad0450a18cb88391f74b5f7cf4aa26"}
+   ;; org.clojure/core.async {:mvn/version "1.9.809-SNAPSHOT"}
  }
  :aliases {
    ;; clj -T:build co :vthreads '"target"'
