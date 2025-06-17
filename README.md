@@ -64,17 +64,17 @@ On Java 21+ (vthreads available):
 
 | vthreads | From source | Compiled to IOC | Compiled to expect vthread |
 | ---- | ---- | ---- | ---- |
-| unset | `clj -M:test`<br> vthreads | `clj -T:build co`<br> `clj -M:test:nosrc` <br> ioc go (on vthreads) | `clj -T:build co :vthreads '"target"'<br> `clj -M:test:nosrc`<br> vthreads |
-| target | `clj -M:test:vtarget`<br> vthreads | `clj -T:build co`<br> `clj -M:test:nosrc:vtarget` <br> ioc go (on vthreads) | `clj -T:build co :vthreads '"target"'<br> `clj -M:test:nosrc:vtarget`<br> vthreads |
-| avoid | `clj -M:test:vavoid`<br> ioc go | `clj -T:build co`<br> `clj -M:test:nosrc:vavoid` <br> ioc go | `clj -T:build co :vthreads '"target"'<br> `clj -M:test:nosrc:vavoid`<br> ERROR (no vthread pool) |
+| unset | `clj -M:test` <br> **vthreads** | `clj -T:build co` <br> `clj -M:test:nosrc` <br> **ioc go (on vthreads)** | `clj -T:build co :vthreads '"target"' <br> `clj -M:test:nosrc` <br> **vthreads** |
+| target | `clj -M:test:vtarget`<br> **vthreads** | `clj -T:build co` <br> `clj -M:test:nosrc:vtarget` <br> **ioc go (on vthreads)** | `clj -T:build co :vthreads '"target"' <br> `clj -M:test:nosrc:vtarget` <br> **vthreads** |
+| avoid | `clj -M:test:vavoid`<br> **ioc go** | `clj -T:build co` <br> `clj -M:test:nosrc:vavoid` <br> **ioc go** | `clj -T:build co :vthreads '"target"' <br> `clj -M:test:nosrc:vavoid`<br> **ERROR (no vthread pool)** |
 
 
 On Java <21 (no vthreads available):
 
 | vthreads | From source | Compiled to IOC | Compiled to expect vthread |
 | ---- | ---- | ---- | ---- |
-| unset | `clj -M:test` <br> ioc go | `clj -T:build co`<br> `clj -M:test:nosrc` <br> ioc go | `clj -T:build co :vthreads '"target"'<br> `clj -M:test:nosrc`<br> ERROR |
-| target | `clj -M:test:vtarget`<br> ioc go | `clj -T:build co`<br> `clj -M:test:nosrc:vtarget` <br> ioc go | `clj -T:build co :vthreads '"target"'<br> `clj -M:test:nosrc:vtarget`<br> ERROR |
-| avoid | `clj -M:test:vavoid`<br> ioc go | `clj -T:build co`<br> `clj -M:test:nosrc:vavoid` <br> ioc go | `clj -T:build co :vthreads '"target"'<br> `clj -M:test:nosrc:vavoid`<br> ERROR |
+| unset | `clj -M:test` <br> **ioc go** | `clj -T:build co` <br> `clj -M:test:nosrc` <br> **ioc go** | `clj -T:build co :vthreads '"target"' <br> `clj -M:test:nosrc` <br> **ERROR** |
+| target | `clj -M:test:vtarget` <br> **ioc go** | `clj -T:build co` <br> `clj -M:test:nosrc:vtarget` <br> **ioc go** | `clj -T:build co :vthreads '"target"' <br> `clj -M:test:nosrc:vtarget` <br> **ERROR** |
+| avoid | `clj -M:test:vavoid` <br> **ioc go** | `clj -T:build co` <br> `clj -M:test:nosrc:vavoid` <br> **ioc go** | `clj -T:build co :vthreads '"target"' <br> `clj -M:test:nosrc:vavoid` <br> **ERROR** |
 
 
