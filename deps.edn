@@ -1,0 +1,22 @@
+{:paths ["src" "target/classes"]
+ :deps {
+   org.clojure/clojure {:mvn/version "1.12.0"}
+   org.clojure/core.async {:mvn/version "1.9.809-SNAPSHOT"}
+ }
+ :aliases {
+   ;; clj -T:build co :vthreads '"target"'
+   :build {:deps {io.github.clojure/tools.build {:git/tag "v0.10.9" :git/sha "e405aac"}} 
+           :ns-default build} 
+
+   ;; clj -M:test
+   :test {:main-opts ["-m" "main"]}
+
+   ;; clj -A:nosrc
+   :nosrc {:paths ["target/classes"]}
+
+   ;; clj -M:nosrc:vtarget -m main
+   ;; clj -M:nosrc:vavoid -m main
+   :vtarget {:jvm-opts ["-Dclojure.core.async.vthreads=target"]}
+   :vavoid {:jvm-opts ["-Dclojure.core.async.vthreads=avoid"]}
+ }
+} 
