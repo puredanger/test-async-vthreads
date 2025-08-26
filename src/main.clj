@@ -3,24 +3,27 @@
   (:require [clojure.core.async :as a]))
 
 (defn thread-type []
-  (.getName (class (Thread/currentThread))))
+  (.getSimpleName (class (Thread/currentThread))))
+
+(defn log [context parking]
+  (println (str context ": " (thread-type) ", parking " 
+                (cond (nil? parking) "nil"
+                      (instance? Throwable parking) "throws"
+                      :else "works"))))
 
 (defn -main [& args]
-  (println "running main")
+  (println "testing\n")
   (let [c (a/chan 10)]
     (a/>!! c 1)
-    (println (str "thread "
-      (try
-        (a/<! c)
-        "parking op worked"
-        (catch Throwable _ "parking op throws")) "\n"))
+    (a/thread (log "thread" (try (a/<! c) (catch Throwable _ :throws))))
+    (Thread/sleep 5)
 
     (a/>!! c 2)
-    (a/io-thread (println (str "io-thread " (thread-type) " " 
-                               (try (a/<! c) "parking op worked" (catch Throwable _ "parking op throws")) "\n")))
+    (a/io-thread (log "io-thread" (try (a/<! c) (catch Throwable _ :throws))))
+    (Thread/sleep 5)
 
     (a/>!! c :works)
-    (a/go (println (str "go " (thread-type) " parking op: " (a/<! c) "\n")))
+    (a/go (log "go" (try (a/<! c) (catch Throwable _ :throws))))
 
     (a/close! c))
   
