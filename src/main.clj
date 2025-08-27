@@ -15,15 +15,15 @@
   (println "testing\n")
   (let [c (a/chan 10)]
     (a/>!! c 1)
-    (a/thread (log "thread" (try (a/<! c) (catch Throwable _ :throws))))
+    (a/thread (log "thread" (try (a/<! c) (catch Throwable e e))))
     (Thread/sleep 5)
 
     (a/>!! c 2)
-    (a/io-thread (log "io-thread" (try (a/<! c) (catch Throwable _ :throws))))
+    (a/io-thread (log "io-thread" (try (a/<! c) (catch Throwable e e))))
     (Thread/sleep 5)
 
     (a/>!! c :works)
-    (a/go (log "go" (try (a/<! c) (catch Throwable _ :throws))))
+    (a/go (log "go" (try (a/<! c) (catch Throwable e e))))
 
     (a/close! c))
   
